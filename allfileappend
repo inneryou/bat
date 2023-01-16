@@ -1,0 +1,19 @@
+@echo off
+setlocal enabledelayedexpansion
+
+set /a counter=0
+
+for /f %%i in ('dir /b *.csv') do (
+
+	echo %%i
+	if !counter!==0(
+		set /p _head=<%%i
+		echo !_head!>>result.csv
+	)
+	set /a counter=!counter!+1
+	
+	for /f "tokens=* skip=1" %%b inf (%%i) do (
+		echo %%b>>result.csv
+	)
+)
+pause
